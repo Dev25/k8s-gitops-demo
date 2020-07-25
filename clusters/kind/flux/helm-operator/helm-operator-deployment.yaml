@@ -1,0 +1,79 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flux-helm-operator
+  namespace: flux
+  labels:
+    name: flux-helm-operator
+spec:
+  type: ClusterIP
+  ports:
+    - name: http-metrics
+      port: 3030
+      targetPort: 3030
+  selector:
+    name: flux-helm-operator
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flux-helm-operator
+  namespace: flux
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: flux-helm-operator
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: flux-helm-operator
+      annotations: {}
+    spec:
+      serviceAccountName: flux-helm-operator
+      volumes:
+      - name: "plugins-cache"
+        emptyDir: {}
+      containers:
+      - name: flux-helm-operator
+        image: docker.io/fluxcd/helm-operator:1.1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 3030
+        livenessProbe:
+          httpGet:
+            port: 3030
+            path: /healthz
+          initialDelaySeconds: 1
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            port: 3030
+            path: /healthz
+          initialDelaySeconds: 1
+          timeoutSeconds: 5
+        resources:
+          requests:
+            cpu: 100m
+            memory: 300Mi
+
+        volumeMounts:
+        - name: "plugins-cache"
+          mountPath: /root/.cache/helm/plugins
+          subPath: v3
+        - name: "plugins-cache"
+          mountPath: /root/.local/share/helm/plugins
+          subPath: v3-config
+        args:
+        - --enabled-helm-versions=v3
+        - --log-format=fmt
+        - --git-timeout=20s
+        - --git-poll-interval=5m
+        - --charts-sync-interval=5m
+        - --update-chart-deps=true
+        - --log-release-diffs=false
+        - --workers=4
