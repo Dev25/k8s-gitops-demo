@@ -60,7 +60,7 @@ spec:
                     exec:
                       command: ["/bin/sh", "-c", "sleep 5"]
         hpaSpec:
-          minReplicas: 2
+          minReplicas: 1
           maxReplicas: 2
         resources:
           limits:
@@ -88,8 +88,8 @@ spec:
       enabled: true
       k8s:
         hpaSpec:
-          minReplicas: 2
-          maxReplicas: 3
+          minReplicas: 1
+          maxReplicas: 2
         env:
         - name: TERMINATION_DRAIN_DURATION_SECONDS
           value: "300"
@@ -121,7 +121,7 @@ spec:
             cpu: 10m
             memory: 64Mi
           limits:
-            cpu: 500m
+            cpu: 1000m
             memory: 150Mi
 
         # Gracefull shutdown until k8s sidecars support exists.
