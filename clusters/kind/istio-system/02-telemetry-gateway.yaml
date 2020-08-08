@@ -7,7 +7,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - gateway.istio-system.svc.cluster.local
+  - istio-system/gateway
   http:
   ## Jaeger
   - match:
