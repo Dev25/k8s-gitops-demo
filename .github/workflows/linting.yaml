@@ -1,0 +1,9 @@
+on: push
+name: Linting
+jobs:
+  kubeval:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: kubeval
+      run: make kubeval

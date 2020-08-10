@@ -20,9 +20,15 @@ A example repository that demonstrates managing workloads and configuration for 
 
 The directory layout is split into the following main areas
 
-- `base/` Deployed in all clusters of the mapped environment e.g. `PodSecurityPolicy`
-- `clusters/<cluster name>/<namespace>/` Cluster specific deployments e.g. your application or environment specific components
-- `src/` Source config/helpers used to generate manifests that are saved in `base/` or `/clusters/`
+
+| Directory | |
+| --------- | ----- |
+| base | Global manifests to apply to all clusters defined in branch e.g. PodSecurityPolicies |
+| clusters/<cluster>/<namespace>/ | Cluster specific manifests e.g. application or environment specific components |
+| src | Config used to generate manifests saved in `base/` or `clusters/` |
+| scripts | Helper scripts |
+| policies | [conftest] policies for enforcing policy|
+
 
 ```bash
 .
@@ -276,3 +282,4 @@ See [gsm-controller] or [external-secrets].
 [GCP Secrets Manager]: https://cloud.google.com/secret-manager
 [external-secrets]: https://github.com/godaddy/kubernetes-external-secrets
 [berglas]: https://github.com/GoogleCloudPlatform/berglas
+[conftest]:
