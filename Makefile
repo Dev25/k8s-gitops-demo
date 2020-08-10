@@ -28,6 +28,7 @@ conftest: bin/conftest-$(CONFTEST_VERSION) ## Run conftest to check that manifes
 
 bin/conftest-$(CONFTEST_VERSION):
 	( \
+	mkdir bin && \
 	cd bin && \
 	wget https://github.com/open-policy-agent/conftest/releases/download/v$(CONFTEST_VERSION)/conftest_$(CONFTEST_VERSION)_Linux_x86_64.tar.gz && \
 	tar --extract --file=conftest_$(CONFTEST_VERSION)_Linux_x86_64.tar.gz conftest && \
@@ -43,6 +44,7 @@ kubeval: bin/kubeval-$(KUBEVAL_VERSION) ## Run kubeval to check manifests meet K
 
 bin/kubeval-$(KUBEVAL_VERSION):
 	( \
+	mkdir bin && \
 	cd bin && \
 	wget https://github.com/instrumenta/kubeval/releases/download/$(KUBEVAL_VERSION)/kubeval-linux-amd64.tar.gz && \
 	tar --extract --file=kubeval-linux-amd64.tar.gz kubeval && \
