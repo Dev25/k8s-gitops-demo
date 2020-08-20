@@ -1,0 +1,50 @@
+# Environment Labels
+env/dev:
+  - clusters/kind/**
+
+# Cluster Labels
+cluster/kind:
+  - clusters/kind/**
+
+cluster/gke-europe:
+  - clusters/gke-europe/**
+
+# Areas
+area/istio:
+  - src/istio/**
+  - base/namespaces/istio-system/**
+  - clusters/*/istio-system/**
+  - clusters/*/istio-operator/**
+  - clusters/**/*istio*.yaml
+
+area/networking:
+  - base/namespaces/networking/**
+  - clusters/*/networking/**
+  - clusters/*/metallb-system/**
+
+area/logging:
+  - base/namespaces/logging/**
+  - clusters/*/logging/**
+
+area/monitoring:
+  - src/kube-prometheus/**
+  - base/namespaces/monitoring/**
+  - clusters/*/monitoring/**
+
+area/kube-system:
+  - base/namespaces/kube-system/**
+  - clusters/*/kube-system/**
+
+area/flux:
+  - base/namespaces/flux/**
+  - clusters/*/flux/**
+
+area/security:
+  - base/security/**
+  - clusters/**/*rbac*.yaml
+
+area/policy:
+  - policy/**
+
+area/base:
+  - base/**
