@@ -67,12 +67,12 @@ spec:
         # There are no ":latest" images for flux. Find the most recent
         # release or image version at https://hub.docker.com/r/fluxcd/flux/tags
         # and replace the tag here.
-        image: docker.io/fluxcd/flux:1.20.0
+        image: docker.io/fluxcd/flux:1.20.2
         imagePullPolicy: IfNotPresent
         resources:
           requests:
-            cpu: 1000m
-            memory: 350Mi
+            cpu: 100m
+            memory: 100Mi
         ports:
         - containerPort: 3030 # informational
         livenessProbe:
