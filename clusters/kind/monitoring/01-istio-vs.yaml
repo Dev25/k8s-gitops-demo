@@ -1,0 +1,47 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: kube-prometheus
+  namespace: monitoring
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - istio-system/gateway
+  http:
+  ## Prometheus
+  - match:
+    - uri:
+        prefix: /prometheus/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: prometheus-k8s.monitoring.svc.cluster.local
+        port:
+          number: 9090
+
+  ## Alertmanager
+  - match:
+    - uri:
+        prefix: /alertmanager/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: alertmanager-main.monitoring.svc.cluster.local
+        port:
+          number: 9093
+
+  ## Grafana
+  - match:
+    - uri:
+        prefix: /grafana/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: grafana.monitoring.svc.cluster.local
+        port:
+          number: 3000

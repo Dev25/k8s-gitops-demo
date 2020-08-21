@@ -1,2 +1,4 @@
 src/*/bin/*
+src/kube-prometheus/vendor
+src/kube-prometheus/manifests
 bin/

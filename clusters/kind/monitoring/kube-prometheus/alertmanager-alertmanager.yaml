@@ -1,0 +1,38 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  labels:
+    alertmanager: main
+  name: main
+  namespace: monitoring
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: alertmanager
+              operator: In
+              values:
+              - main
+          namespaces:
+          - monitoring
+          topologyKey: kubernetes.io/hostname
+        weight: 100
+  externalUrl: http://kind.test/alertmanager/
+  image: quay.io/prometheus/alertmanager:v0.21.0
+  nodeSelector:
+    kubernetes.io/os: linux
+  replicas: 3
+  resources:
+    requests:
+      cpu: 0m
+      memory: 64Mi
+  routePrefix: /
+  securityContext:
+    fsGroup: 2000
+    runAsNonRoot: true
+    runAsUser: 10001
+  serviceAccountName: alertmanager-main
+  version: v0.21.0
