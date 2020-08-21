@@ -75,50 +75,6 @@ local _kp =
     # prometheusAlerts+:: {
     # },
 
-    # nodeExporter+:: {
-    #   clusterRoleBinding:
-    #     local clusterRoleBinding = k.rbac.v1.clusterRoleBinding;
-
-    #     clusterRoleBinding.new() +
-    #     clusterRoleBinding.mixin.metadata.withName('node-exporter') +
-    #     clusterRoleBinding.mixin.roleRef.withApiGroup('rbac.authorization.k8s.io') +
-    #     clusterRoleBinding.mixin.roleRef.withName('node-exporter') +
-    #     clusterRoleBinding.mixin.roleRef.mixinInstance({ kind: 'ClusterRole' }) +
-    #     clusterRoleBinding.withSubjects([{ kind: 'ServiceAccount', name: 'node-exporter', namespace: $._config.namespace }]),
-
-    #   clusterRole:
-    #     local clusterRole = k.rbac.v1.clusterRole;
-    #     local policyRule = clusterRole.rulesType;
-
-    #     local authenticationRole = policyRule.new() +
-    #                                policyRule.withApiGroups(['authentication.k8s.io']) +
-    #                                policyRule.withResources([
-    #                                  'tokenreviews',
-    #                                ]) +
-    #                                policyRule.withVerbs(['create']);
-
-    #     local authorizationRole = policyRule.new() +
-    #                               policyRule.withApiGroups(['authorization.k8s.io']) +
-    #                               policyRule.withResources([
-    #                                 'subjectaccessreviews',
-    #                               ]) +
-    #                               policyRule.withVerbs(['create']);
-
-    #     local pspRole = policyRule.new() +
-    #                     policyRule.withApiGroups(['policy']) +
-    #                     policyRule.withResources([
-    #                       'podsecuritypolicies',
-    #                     ]) +
-    #                     policyRule.withVerbs(['use']) +
-    #                     policyRule.withResourceNames(['node-exporter']);
-
-    #     local rules = [authenticationRole, authorizationRole, pspRole];
-
-    #     clusterRole.new() +
-    #     clusterRole.mixin.metadata.withName('node-exporter') +
-    #     clusterRole.withRules(rules),
-    # },
-
     prometheus+:: {
       prometheus+: {
         spec+: {

@@ -1,9 +1,6 @@
 local k = import 'ksonnet/ksonnet.beta.3/k.libsonnet';
-local pvc = k.core.v1.persistentVolumeClaim;
 local container = k.core.v1.pod.mixin.spec.containersType;
 local resourceRequirements = container.mixin.resourcesType;
-local service = k.core.v1.service;
-local servicePort = k.core.v1.service.mixin.spec.portsType;
 
 local common = import 'common.jsonnet';
 local kp = common.kp {
