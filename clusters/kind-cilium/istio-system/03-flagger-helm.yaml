@@ -1,0 +1,70 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: flagger
+  namespace: istio-system
+spec:
+  releaseName: flagger
+  chart:
+    repository: https://flagger.app
+    name: flagger
+    version: 1.0.1
+  values:
+    image:
+      repository: weaveworks/flagger
+      tag: 1.0.1
+
+    # accepted values are debug, info, warning, error (defaults to info)
+    logLevel: info
+
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "8080"
+
+    metricsServer: "http://prometheus:9090"
+
+    # accepted values are kubernetes, istio, linkerd, appmesh, nginx, gloo or supergloo:mesh.namespace (defaults to istio)
+    meshProvider: "istio"
+
+    # single namespace restriction
+    namespace: ""
+
+    # list of pod labels that Flagger uses to create pod selectors
+    # defaults to: app,name,app.kubernetes.io/name
+    selectorLabels: ""
+
+    # when enabled, flagger will track changes in Secrets and ConfigMaps referenced in the target deployment (enabled by default)
+    configTracking:
+      enabled: true
+
+    # when specified, flagger will publish events to the provided webhook
+    eventWebhook: ""
+
+    podMonitor:
+      enabled: false
+      namespace:
+      interval: 15s
+      additionalLabels: {}
+
+    env: []
+
+    rbac:
+      # rbac.create: `true` if rbac resources should be created
+      create: true
+      # rbac.pspEnabled: `true` if PodSecurityPolicy resources should be created
+      pspEnabled: false
+
+    resources:
+      requests:
+        memory: "32Mi"
+        cpu: "10m"
+
+    #  Istio multi-cluster service mesh (shared control plane single-network)
+    # https://istio.io/docs/setup/install/multicluster/shared-vpn/
+    istio:
+      kubeconfig:
+        # istio.kubeconfig.secretName: The name of the secret containing the Istio control plane kubeconfig
+        secretName: ""
+        # istio.kubeconfig.key: The name of secret data key that contains the Istio control plane kubeconfig
+        key: "kubeconfig"

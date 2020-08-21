@@ -1,0 +1,15 @@
+---
+# Source: cilium/charts/hubble-ui/templates/svc.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: kube-system
+  name: hubble-ui
+spec:
+  selector:
+    k8s-app: hubble-ui
+  ports:
+    - name: http
+      port: 80
+      targetPort: 12000
+  type: ClusterIP

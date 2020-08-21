@@ -1,10 +1,13 @@
 # Environment Labels
 env/dev:
-  - clusters/kind/**
+  - clusters/kind*/**
 
 # Cluster Labels
 cluster/kind:
   - clusters/kind/**
+
+cluster/kind-cilium:
+  - clusters/kind-cilium/**
 
 cluster/gke-europe:
   - clusters/gke-europe/**
