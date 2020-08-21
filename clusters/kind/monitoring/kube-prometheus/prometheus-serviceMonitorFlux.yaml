@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    k8s-app: flux
+  name: flux
+  namespace: monitoring
+spec:
+  endpoints:
+  - honorLabels: true
+    interval: 15s
+    port: http-metrics
+  namespaceSelector:
+    matchNames:
+    - flux
+  selector:
+    matchLabels:
+      name: flux
