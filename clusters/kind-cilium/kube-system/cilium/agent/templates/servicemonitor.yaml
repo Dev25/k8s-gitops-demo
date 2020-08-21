@@ -1,0 +1,38 @@
+---
+# Source: cilium/charts/agent/templates/servicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: cilium-agent
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      k8s-app: cilium
+  namespaceSelector:
+    matchNames:
+    - kube-system
+  endpoints:
+  - port: metrics
+    interval: 10s
+    honorLabels: true
+    path: /metrics
+---
+# Source: cilium/charts/agent/templates/servicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: hubble
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      k8s-app: hubble
+  namespaceSelector:
+    matchNames:
+    - kube-system
+  endpoints:
+  - port: hubble-metrics
+    interval: 10s
+    honorLabels: true
+    path: /metrics

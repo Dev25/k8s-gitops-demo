@@ -1,4 +1,5 @@
 src/*/bin/*
+src/*/charts/
 src/kube-prometheus/vendor
 src/kube-prometheus/manifests
 bin/
