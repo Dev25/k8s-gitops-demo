@@ -6,7 +6,6 @@ metadata:
 spec:
   profile: default
   hub: docker.io/istio
-  profile: default
   tag: 1.6.7
 
   meshConfig:
